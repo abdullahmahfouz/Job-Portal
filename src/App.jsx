@@ -45,7 +45,6 @@ const router = createBrowserRouter([
 function App() {
   return (
     <ThemeProvider>
-      <div className="grid-background"></div>
       <RouterProvider router={router} />
     </ThemeProvider>
   )

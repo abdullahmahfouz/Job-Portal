@@ -114,7 +114,5 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+  /* Remove body background override to allow our custom grid */
 }
