@@ -7,6 +7,7 @@ import JobListing from './pages/job-listing'
 import JobPage from './pages/job'
 import SavedJobs from './pages/saved-jobs'
 import MyJobs from './pages/my-jobs'
+import { ThemeProvider } from './components/darkmode'
 
 const router = createBrowserRouter([
   {
@@ -43,10 +44,10 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <>
+    <ThemeProvider>
       <div className="grid-background"></div>
       <RouterProvider router={router} />
-    </>
+    </ThemeProvider>
   )
 }
 
