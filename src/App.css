@@ -1,45 +1,13 @@
-/* FORCE DARK GRID BACKGROUND - OVERRIDE ALL FRAMEWORKS */
-* {
-  margin: 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
-}
-
-html,
-html *,
-body,
-body *,
-#root,
-#root * {
-  background: transparent !important;
-}
-
-html {
-  background: #0a0a0a !important;
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px),
-    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%) !important;
-  background-size: 64px 64px, 64px 64px, 8px 8px, 8px 8px, 100% 100% !important;
-  background-attachment: fixed !important;
-  min-height: 100vh !important;
-  width: 100% !important;
-}
-
-/* Make all elements transparent to show grid */
-div, main, header, nav, section, article {
-  background: transparent !important;
-}
-
-/* Text should be visible */
-h1, h2, h3, h4, h5, h6, p, span {
-  color: white !important;
-}
-
-/* Override any Tailwind variables */
-:root {
-  --background: #0b0f14 !important;
-  --color-background: #0b0f14 !important;
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: 
+        /* Very subtle grid */
+        radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.02) 1px, transparent 0),
+        /* Pure black */
+        #000000;
+    background-size: 
+        25px 25px,
+        100% 100%;
 }
