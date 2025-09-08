@@ -1,13 +1,38 @@
+/* make sure root is transparent so body background shows */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+}
+
+/* dark page base (applies before the grid) */
 body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    background: 
-        /* Very subtle grid */
-        radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.02) 1px, transparent 0),
-        /* Pure black */
-        #000000;
-    background-size: 
-        25px 25px,
-        100% 100%;
+  min-height: 100vh;
+  background-color: #1a1a1a !important;
+  color: #fff;
+}
+
+/* grid element shown above the page background but below content */
+.grid-background {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 30px 30px;
+  z-index: 0; /* change from -1 to 0 */
+}
+
+/* vignette */
+.grid-background::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent, rgba(0, 0, 0, 0.6));
+  pointer-events: none;
+  z-index: 0;
 }
