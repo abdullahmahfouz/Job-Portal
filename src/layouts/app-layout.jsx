@@ -3,7 +3,8 @@ import { Outlet } from "react-router-dom";
 
 const AppLayout = () => {
   return (
-    <div>
+    <div style={{ background: 'blue', color: 'white', padding: '20px' }}>
+      
       <div className="grid-background"></div>
       <main className="min-h-screen container">
         <Header />

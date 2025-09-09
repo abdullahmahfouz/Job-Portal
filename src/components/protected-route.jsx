@@ -1,9 +1,6 @@
 import React from 'react'
 
-const ProtectedRoute = () => {
-  return (
-    <div>ProtectedRoute</div>
-  )
+export default function ProtectedRoute({ children }) {
+  // For now, just render children without any authentication logic
+  return children;
 }
-
-export default ProtectedRoute

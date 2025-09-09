@@ -1,7 +1,6 @@
-
 import React from 'react'
 
-const JobPapge = () => {
+const JobPage = () => {
   return (
     <div>Job</div>
   )
