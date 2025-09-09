@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const AppLayout = () => {
   return (
-    <div style={{ background: 'blue', color: 'white', padding: '20px' }}>
+    <div className="relative min-h-screen bg-gray-900 text-white">
       
       <div className="grid-background"></div>
       <main className="min-h-screen container">
@@ -11,7 +11,7 @@ const AppLayout = () => {
         <Outlet />
       </main>
       <div className="p-10 text-center bg-gray-800 mt-10">
-        ALL RIGHTS RESERVED - 2025  
+        ALL RIGHTS RESERVED &copy; - HireMe 2025
       </div>
     </div>
   );

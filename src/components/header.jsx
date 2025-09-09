@@ -1,17 +1,19 @@
-
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
-    <>
-    <nav className="py-4 flex justify-between items-center">
-      <Link>
-      <img src="/logo.png" alt="logo" className="w-32" />
-      </Link>
-      <Button variant="outline">Login</Button>
-
-    </nav>
-    </>
+    <header className="absolute top-4 left-4 z-20">
+      <nav>
+        <Link to="/" className="block">
+          <img 
+            src="/logo.png" 
+            alt="HireMe Logo" 
+            className="h-10 w-auto" 
+          />
+        </Link>
+      </nav>
+    </header>
   )
 }
 
