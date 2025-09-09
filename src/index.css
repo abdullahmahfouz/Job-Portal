@@ -70,8 +70,13 @@
     border-color: hsl(var(--border));
   }
   body {
-    background: transparent !important;
+    background: #1a1a1a !important;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px) !important;
+    background-size: 30px 30px !important;
     color: hsl(var(--foreground));
+    min-height: 100vh;
   }
 }
 
