@@ -9,7 +9,8 @@ const Header = () => {
           <img 
             src="/logo.png" 
             alt="HireMe Logo" 
-            className="h-10 w-auto" 
+            className="h-16 w-auto max-w-32"
+            style={{ maxHeight: '150px', maxWidth: '200px' }}
           />
         </Link>
       </nav>
