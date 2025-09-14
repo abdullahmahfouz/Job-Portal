@@ -67,27 +67,18 @@
 
 @layer base {
   * {
-    border-color: hsl(var(--border));
+    @apply border-gray-200;
   }
   body {
-    background: #1a1a1a !important;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px) !important;
-    background-size: 30px 30px !important;
-    color: hsl(var(--foreground));
-    min-height: 100vh;
+    @apply bg-background text-foreground;
   }
 }
 
 @layer utilities {
   .gradient {
-    background: linear-gradient(to bottom right, #6b7280, #d1d5db, #ffffff);
+    @apply bg-gradient-to-br from-gray-500 via-gray-200 to-white;
   }
   .gradient-title {
-    background: linear-gradient(to bottom right, #6b7280, #d1d5db, #ffffff);
-    color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
+    @apply gradient text-transparent bg-clip-text;
   }
 }

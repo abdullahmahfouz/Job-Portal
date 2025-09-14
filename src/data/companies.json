@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Google",
+    "logo": "/logo.png"
+  },
+  {
+    "name": "Microsoft",
+    "logo": "/logo.png"
+  },
+  {
+    "name": "Apple",
+    "logo": "/logo.png"
+  },
+  {
+    "name": "Meta",
+    "logo": "/logo.png"
+  },
+  {
+    "name": "Netflix",
+    "logo": "/logo.png"
+  },
+  {
+    "name": "Amazon",
+    "logo": "/logo.png"
+  }
+]
