@@ -1,20 +1,23 @@
 import React from 'react'
+import { SignedIn, SignedOut, UserButton, SignInButton } from '@clerk/clerk-react'
 import { Link } from 'react-router-dom'
-
+import { Button } from "./ui/ui/button";
 const Header = () => {
   return (
-    <header className="absolute top-4 left-4 z-20">
-      <nav>
-        <Link to="/" className="block">
-          <img 
-            src="/logo.png" 
-            alt="HireMe Logo" 
-            className="h-16 w-auto max-w-32"
+    <nav className="py-4 flex justify-between items-center px-8 bg-white shadow-md">
+      <Link to="/" className="block">
+        <img
+          src="/logo.png"
+          alt="HireMe Logo"
+            className="h-20"
             style={{ maxHeight: '150px', maxWidth: '200px' }}
+
           />
         </Link>
-      </nav>
-    </header>
+
+      
+
+    </nav>
   )
 }
 
