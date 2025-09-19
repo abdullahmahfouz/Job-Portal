@@ -67,7 +67,8 @@
 
 @layer base {
   * {
-    @apply border-gray-200;
+    /* Fixed: border-border is not a valid utility */
+    border-color: hsl(var(--border));
   }
   body {
     @apply bg-background text-foreground;
@@ -76,7 +77,8 @@
 
 @layer utilities {
   .gradient {
-    @apply bg-gradient-to-br from-gray-500 via-gray-200 to-white;
+    /* Fixed: use valid color utilities */
+    background: linear-gradient(to bottom right, #6b7280, #e5e7eb, #ffffff);
   }
   .gradient-title {
     @apply gradient text-transparent bg-clip-text;
