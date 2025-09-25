@@ -98,11 +98,28 @@
 }
 
 @layer utilities {
-  .gradient {
-    /* Fixed: use valid color utilities */
-    background: linear-gradient(to bottom right, #6b7280, #e5e7eb, #ffffff);
-  }
   .gradient-title {
-    @apply gradient text-transparent bg-clip-text;
+    background: linear-gradient(to bottom right, #f8fafc, #dbeafe, #f8fafc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .logo-marquee {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: max-content;
+    animation: logo-scroll 25s linear infinite;
+  }
+
+}
+
+@keyframes logo-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }

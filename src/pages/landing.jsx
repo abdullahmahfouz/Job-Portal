@@ -1,56 +1,51 @@
-import { Button } from "@/components/ui/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/ui/card";
+import { Button } from "@/components/ui/button";
+import companies from "@/data/companies.json";
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
-  return (
-    <main className="flex flex-col gap-10 sm:gap-20 py-10 sm:py-20">
-      <section className="text-center ">
-        <h1 className="flex flex-col items-center justify-center gradient-title font-extrabold text-4xl sm:text-6xl lg:text-8xl tracking-tighter py-4">
-          Looking for job opportunities?
-          <span className="flex items-center gap-2 sm:gap-6">
-            and get
-            <img
-              src="/logo.png"
-              className="h-14 sm:h-24 lg:h-32"
-              alt="Hirrd Logo"
-            />
-          </span>
-        </h1>
-        <p className="text-gray-300 sm:mt-4 text-xs sm:text-xl">
-          Explore thousands of job listings or find the perfect candidate
-        </p>
-      </section>
-      <div className="flex gap-6 justify-center">
-        <Link to={"/jobs"}>
-          <Button variant="blue" size="xl">
-            Find Jobs
-          </Button>
-        </Link>
-        <Link to={"/post-job"}>
-          <Button variant="destructive" size="xl">
-            Post a Job
-          </Button>
-        </Link>
-      </div>
+  const marqueeLogos = [...companies, ...companies];
 
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-bold">For Job Seekers</CardTitle>
-          </CardHeader>
-          <CardContent>
-            Search and apply for jobs, track applications, and more.
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-bold">For Employers</CardTitle>
-          </CardHeader>
-          <CardContent>
-            Post jobs, manage applications, and find the best candidates.
-          </CardContent>
-        </Card>
+  return (
+    <main className="relative flex min-h-[calc(100vh-180px)] w-full flex-col items-center justify-center gap-16 px-4 py-16 text-center sm:gap-24 sm:py-24">
+      <section className="space-y-6">
+        <p className="text-[12px] font-semibold uppercase tracking-[0.35em] text-slate-200">
+          Hire smarter, hire faster
+        </p>
+        <div className="flex flex-col items-center gap-6 font-extrabold tracking-tight text-white">
+          <h1 className="gradient-title text-4xl leading-tight sm:text-6xl lg:text-[70px]">
+            Find Your Dream Job
+          </h1>
+        </div>
+         
+        <p className="mx-auto max-w-3xl text-sm text-slate-300 sm:text-lg">
+          Explore thousands of job listings or find the perfect candidate with a platform built for modern teams.
+        </p>
+        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
+          <Link to="/jobs" className="w-full sm:w-auto">
+            <Button size="xl" className="w-full sm:w-auto">
+              Find Jobs
+            </Button>
+          </Link>
+          <Link to="/post-job" className="w-full sm:w-auto">
+            <Button variant="destructive" size="xl" className="w-full sm:w-auto">
+              Post a Job
+            </Button>
+          </Link>
+        </div>
+        <div className="mt-8 h-px w-32 bg-white/20" />
+      </section>
+
+      <section className="relative w-full overflow-hidden">
+        <div className="logo-marquee">
+          {marqueeLogos.map((company, index) => (
+            <img
+              key={`${company.id}-${index}`}
+              src={company.path}
+              alt={company.name}
+              className="h-2 w-auto max-h-8 max-w-[120px] object-contain opacity-70 transition hover:opacity-100 sm:h-2.5 lg:h-3"
+            />
+          ))}
+        </div>
       </section>
     </main>
   );
