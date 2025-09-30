@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import AppLayout from "./layouts/app-layout";
 import ProtectedRoute from "./components/protected-route";
-import { ThemeProvider } from "./components/ui/ui/theme-provider";
+import { ThemeProvider } from "./components/ui/theme-provider";
 
 import LandingPage from "./pages/landing";
 import Onboarding from "./pages/onboarding";
@@ -22,6 +22,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <LandingPage />,
       },
+      
       {
         path: "/onboarding",
         element: (

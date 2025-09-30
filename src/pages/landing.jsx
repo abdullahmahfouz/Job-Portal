@@ -21,16 +21,20 @@ const LandingPage = () => {
           Explore thousands of job listings or find the perfect candidate with a platform built for modern teams.
         </p>
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
-          <Link to="/jobs" className="w-full sm:w-auto">
-            <Button size="xl" className="w-full sm:w-auto">
-              Find Jobs
-            </Button>
-          </Link>
-          <Link to="/post-job" className="w-full sm:w-auto">
-            <Button variant="destructive" size="xl" className="w-full sm:w-auto">
-              Post a Job
-            </Button>
-          </Link>
+          <Button
+            asChild
+            size="lg"
+            className="w-full bg-[#2563EB] px-12 py-5 text-base font-semibold text-white shadow-lg transition hover:bg-[#1d4ed8] sm:w-auto"
+          >
+            <Link to="/jobs">Find Jobs</Link>
+          </Button>
+          <Button
+            asChild
+            size="lg"
+            className="w-full bg-[#DC2626] px-12 py-5 text-base font-semibold text-white shadow-lg transition hover:bg-[#b91c1c] sm:w-auto"
+          >
+            <Link to="/post-job">Post a Job</Link>
+          </Button>
         </div>
         <div className="mt-8 h-px w-32 bg-white/20" />
       </section>
