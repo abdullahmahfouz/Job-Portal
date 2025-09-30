@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @theme {
   --color-background: hsl(var(--background));
@@ -22,6 +20,14 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 }
 
 @layer base {
@@ -63,7 +69,7 @@
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary-foreground: 210 40% 98%; 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     --accent: 217.2 32.6% 17.5%;
@@ -89,7 +95,6 @@
 
 @layer base {
   * {
-    /* Fixed: border-border is not a valid utility */
     border-color: hsl(var(--border));
   }
   body {
@@ -98,28 +103,10 @@
 }
 
 @layer utilities {
+  .gradient {
+    @apply bg-gradient-to-br from-gray-500 via-gray-200 to-white;
+  }
   .gradient-title {
-    background: linear-gradient(to bottom right, #f8fafc, #dbeafe, #f8fafc);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .logo-marquee {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: max-content;
-    animation: logo-scroll 25s linear infinite;
-  }
-
-}
-
-@keyframes logo-scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
+    @apply bg-gradient-to-br from-gray-500 via-gray-200 to-white text-transparent bg-clip-text;
   }
 }
