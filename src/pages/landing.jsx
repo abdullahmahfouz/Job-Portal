@@ -1,4 +1,5 @@
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import companies from "@/data/companies.json";
 import { Link } from "react-router-dom";
 
@@ -21,20 +22,21 @@ const LandingPage = () => {
           Explore thousands of job listings or find the perfect candidate with a platform built for modern teams.
         </p>
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
-          <Button
-            asChild
-            size="lg"
-            className="w-full bg-[#2563EB] px-12 py-5 text-base font-semibold text-white shadow-lg transition hover:bg-[#1d4ed8] sm:w-auto"
+          <Link
+            to="/jobs"
+            className={cn(buttonVariants({ size: "lg" }), "w-full sm:w-auto")}
           >
-            <Link to="/jobs">Find Jobs</Link>
-          </Button>
-          <Button
-            asChild
-            size="lg"
-            className="w-full bg-[#DC2626] px-12 py-5 text-base font-semibold text-white shadow-lg transition hover:bg-[#b91c1c] sm:w-auto"
+            Find Jobs
+          </Link>
+          <Link
+            to="/post-job"
+            className={cn(
+              buttonVariants({ size: "lg", variant: "destructive" }),
+              "w-full sm:w-auto"
+            )}
           >
-            <Link to="/post-job">Post a Job</Link>
-          </Button>
+            Post a Job
+          </Link>
         </div>
         <div className="mt-8 h-px w-32 bg-white/20" />
       </section>
