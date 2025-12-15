@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 
 const CarouselContext = React.createContext(null)
 
+// Hook to access carousel state and controls from child components
 function useCarousel() {
   const context = React.useContext(CarouselContext)
 
@@ -17,6 +18,7 @@ function useCarousel() {
   return context
 }
 
+// Main carousel wrapper that wires up Embla and keyboard controls
 function Carousel({
   orientation = "horizontal",
   opts,
@@ -57,11 +59,13 @@ function Carousel({
     }
   }, [scrollPrev, scrollNext])
 
+  // Expose the Embla API to parent components if desired
   React.useEffect(() => {
     if (!api || !setApi) return
     setApi(api)
   }, [api, setApi])
 
+  // Track whether previous/next buttons should be enabled
   React.useEffect(() => {
     if (!api) return
     onSelect(api)
@@ -99,6 +103,7 @@ function Carousel({
   );
 }
 
+// Container for all carousel items
 function CarouselContent({
   className,
   ...props
@@ -121,6 +126,7 @@ function CarouselContent({
   );
 }
 
+// Single slide inside the carousel
 function CarouselItem({
   className,
   ...props
@@ -141,6 +147,7 @@ function CarouselItem({
   );
 }
 
+// Button to go to the previous slide
 function CarouselPrevious({
   className,
   variant = "outline",
@@ -166,6 +173,7 @@ function CarouselPrevious({
   );
 }
 
+// Button to go to the next slide
 function CarouselNext({
   className,
   variant = "outline",

@@ -14,6 +14,7 @@ import JobPage from "./pages/job";
 
 import "./App.css";
 
+// Router configuration for all main application pages
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
@@ -33,11 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/jobs",
-        element: (
-          <ProtectedRoute>
-            <JobListing />
-          </ProtectedRoute>
-        ),
+        element: <JobListing />,
       },
       {
         path: "/post-job",
@@ -65,16 +62,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/job/:id",
-        element: (
-          <ProtectedRoute>
-            <JobPage />
-          </ProtectedRoute>
-        ),
+        element: <JobPage />,
       },
     ],
   },
 ]);
 
+// Root App component that wraps the router with a theme provider
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">

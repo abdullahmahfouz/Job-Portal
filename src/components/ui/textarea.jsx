@@ -2,6 +2,7 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+// Multiline text input styled to match the rest of the form controls
 function Textarea({
   className,
   ...props

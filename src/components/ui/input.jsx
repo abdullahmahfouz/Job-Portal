@@ -2,6 +2,7 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+// Styled text input that matches the design system
 function Input({
   className,
   type,

@@ -7,6 +7,7 @@ const initialState = {
 
 const ThemeProviderContext = createContext(initialState)
 
+// Context provider that manages the current theme (light/dark/system)
 export function ThemeProvider({
   children,
   defaultTheme = "system",
@@ -17,6 +18,7 @@ export function ThemeProvider({
     () => (localStorage.getItem(storageKey)) || defaultTheme
   )
 
+  // Apply the selected theme class to the document root
   useEffect(() => {
     const root = window.document.documentElement
 
@@ -50,6 +52,7 @@ export function ThemeProvider({
   )
 }
 
+// Hook to read and update the current theme from anywhere in the app
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext)
 

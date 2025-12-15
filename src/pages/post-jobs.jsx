@@ -15,6 +15,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+// Page where recruiters can post new job listings
 const PostJobs = () => {
   return (
     <div></div>

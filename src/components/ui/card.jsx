@@ -2,6 +2,7 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+// Main card container with border and background
 function Card({
   className,
   ...props
@@ -17,6 +18,7 @@ function Card({
   );
 }
 
+// Card header area for titles and actions
 function CardHeader({
   className,
   ...props
@@ -32,6 +34,7 @@ function CardHeader({
   );
 }
 
+// Card title text
 function CardTitle({
   className,
   ...props
@@ -44,6 +47,7 @@ function CardTitle({
   );
 }
 
+// Secondary description text inside the card
 function CardDescription({
   className,
   ...props
@@ -56,6 +60,7 @@ function CardDescription({
   );
 }
 
+// Area for card actions (e.g., buttons)
 function CardAction({
   className,
   ...props
@@ -71,6 +76,7 @@ function CardAction({
   );
 }
 
+// Main body/content section of the card
 function CardContent({
   className,
   ...props
@@ -78,6 +84,7 @@ function CardContent({
   return (<div data-slot="card-content" className={cn("px-6", className)} {...props} />);
 }
 
+// Footer row, usually for actions or metadata
 function CardFooter({
   className,
   ...props

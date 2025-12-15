@@ -6,24 +6,28 @@ import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+// Root select component that manages open state and value
 function Select({
   ...props
 }) {
   return <SelectPrimitive.Root data-slot="select" {...props} />;
 }
 
+// Group wrapper for organizing related select items
 function SelectGroup({
   ...props
 }) {
   return <SelectPrimitive.Group data-slot="select-group" {...props} />;
 }
 
+// Placeholder/value renderer for the select trigger
 function SelectValue({
   ...props
 }) {
   return <SelectPrimitive.Value data-slot="select-value" {...props} />;
 }
 
+// The clickable select input shown to the user
 function SelectTrigger({
   className,
   size = "default",
@@ -47,6 +51,7 @@ function SelectTrigger({
   );
 }
 
+// Popover panel that contains the list of options
 function SelectContent({
   className,
   children,
@@ -77,6 +82,7 @@ function SelectContent({
   );
 }
 
+// Label text inside the select dropdown
 function SelectLabel({
   className,
   ...props
@@ -89,6 +95,7 @@ function SelectLabel({
   );
 }
 
+// Single option row inside the select dropdown
 function SelectItem({
   className,
   children,
@@ -112,6 +119,7 @@ function SelectItem({
   );
 }
 
+// Visual separator line between groups of options
 function SelectSeparator({
   className,
   ...props
@@ -124,6 +132,7 @@ function SelectSeparator({
   );
 }
 
+// Scroll button that appears at the top when the list overflows
 function SelectScrollUpButton({
   className,
   ...props
@@ -138,6 +147,7 @@ function SelectScrollUpButton({
   );
 }
 
+// Scroll button that appears at the bottom when the list overflows
 function SelectScrollDownButton({
   className,
   ...props

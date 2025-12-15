@@ -5,30 +5,35 @@ import { Drawer as DrawerPrimitive } from "vaul"
 
 import { cn } from "@/lib/utils"
 
+// Root drawer component that controls open/close state
 function Drawer({
   ...props
 }) {
   return <DrawerPrimitive.Root data-slot="drawer" {...props} />;
 }
 
+// Element that toggles the drawer open/closed
 function DrawerTrigger({
   ...props
 }) {
   return <DrawerPrimitive.Trigger data-slot="drawer-trigger" {...props} />;
 }
 
+// Portal used to render drawer into a top-level DOM node
 function DrawerPortal({
   ...props
 }) {
   return <DrawerPrimitive.Portal data-slot="drawer-portal" {...props} />;
 }
 
+// Button that closes the drawer
 function DrawerClose({
   ...props
 }) {
   return <DrawerPrimitive.Close data-slot="drawer-close" {...props} />;
 }
 
+// Full-screen overlay behind the drawer
 function DrawerOverlay({
   className,
   ...props
@@ -44,6 +49,7 @@ function DrawerOverlay({
   );
 }
 
+// Main drawer panel that slides in from a screen edge
 function DrawerContent({
   className,
   children,
@@ -71,6 +77,7 @@ function DrawerContent({
   );
 }
 
+// Header section inside the drawer, usually title + description
 function DrawerHeader({
   className,
   ...props
@@ -86,6 +93,7 @@ function DrawerHeader({
   );
 }
 
+// Footer area for drawer actions (e.g., buttons)
 function DrawerFooter({
   className,
   ...props
@@ -98,6 +106,7 @@ function DrawerFooter({
   );
 }
 
+// Title text inside the drawer header
 function DrawerTitle({
   className,
   ...props
@@ -110,6 +119,7 @@ function DrawerTitle({
   );
 }
 
+// Description text inside the drawer header
 function DrawerDescription({
   className,
   ...props

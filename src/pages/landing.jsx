@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/accordion";
 import { Link } from "react-router-dom";
 
+// Public landing page that shows hero, companies slider and FAQs
 const LandingPage = () => {
   return (
     <main className="min-h-screen flex flex-col">
@@ -53,26 +54,6 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-      <Carousel
-        plugins={[
-          Autoplay({
-            delay: 2000,
-          }),
-        ]}
-        className="w-full py-10"
-      >
-        <CarouselContent className="flex gap-5 sm:gap-20 items-center">
-          {companies.map(({ name, id, path }) => (
-            <CarouselItem key={id} className="basis-1/3 lg:basis-1/6 ">
-              <img
-                src={path}
-                alt={name}
-                className="h-9 sm:h-14 object-contain"
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
 
       {/* Companies Section */}
       <section className="py-12 bg-muted/30">
