@@ -1,16 +1,39 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import useFetch from '@/hooks/use-fetch'
-import { getSingleJob, applyToJob } from '@/api/apiJobs'
+import { getSingleJob, applyToJob, uploadResume, saveJobs } from '@/api/apiJobs'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
 import { BarLoader } from 'react-spinners'
 import { Briefcase, MapPin, Heart, DoorOpen, Clock, Building2 } from 'lucide-react'
 import { useUser } from '@clerk/clerk-react'
 
 const JobPage = () => {
   const { id } = useParams()
-  const { user } = useUser()
+  const { user, session } = useUser()
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const [resumeFile, setResumeFile] = useState(null)
+
+  // Application form state
+  const [applicationData, setApplicationData] = useState({
+    skills: '',
+    experience: '',
+    education: '',
+    resume: ''
+  })
 
   const { 
     loading: loadingJob, 
@@ -24,20 +47,87 @@ const JobPage = () => {
     fn: fnApply 
   } = useFetch(applyToJob)
 
+  const { 
+    loading: loadingSave, 
+    data: savedJob,
+    fn: fnSave 
+  } = useFetch(saveJobs)
+
+  const [saved, setSaved] = useState(false)
+
   useEffect(() => {
     if (id) {
       fnJob()
     }
   }, [id])
 
-  const handleApply = () => {
+  // Check if job is saved
+  useEffect(() => {
+    if (job?.saved && job.saved.length > 0) {
+      setSaved(true)
+    } else {
+      setSaved(false)
+    }
+  }, [job])
+
+  // Update saved state after save/unsave
+  useEffect(() => {
+    if (savedJob !== undefined) {
+      fnJob() // Refetch to update saved status
+    }
+  }, [savedJob])
+
+  // Close drawer and show success when application is submitted
+  useEffect(() => {
+    if (application) {
+      setIsDrawerOpen(false)
+      // Refetch job to update application count
+      fnJob()
+    }
+  }, [application])
+
+  const handleApply = async (e) => {
+    e.preventDefault()
+    
+    let resumeUrl = applicationData.resume
+    
+    // Upload resume file if provided
+    if (resumeFile) {
+      try {
+        const token = await session?.getToken({ template: 'supabase' })
+        resumeUrl = await uploadResume(token, resumeFile, user.id)
+      } catch (error) {
+        console.error('Error uploading resume:', error)
+        alert('Failed to upload resume. Please try again.')
+        return
+      }
+    }
+    
     fnApply({
       job_id: id,
       candidate_id: user.id,
       name: user.fullName,
       status: 'applied',
-      resume: ''
+      ...applicationData,
+      resume: resumeUrl
     })
+  }
+
+  const handleInputChange = (field, value) => {
+    setApplicationData(prev => ({
+      ...prev,
+      [field]: value
+    }))
+  }
+
+  const handleSaveJob = () => {
+    fnSave(
+      { alreadySaved: saved },
+      {
+        user_id: user.id,
+        job_id: id
+      }
+    )
   }
 
   if (loadingJob) {
@@ -89,20 +179,116 @@ const JobPage = () => {
             <Button 
               variant="outline" 
               size="lg"
+              onClick={handleSaveJob}
+              disabled={loadingSave}
               className="flex-1 md:flex-none"
             >
-              <Heart size={18} className="mr-2" />
-              Save
+              <Heart 
+                size={18} 
+                className="mr-2" 
+                fill={saved ? "red" : "none"}
+                color={saved ? "red" : "currentColor"}
+              />
+              {saved ? 'Saved' : 'Save'}
             </Button>
-            <Button 
-              size="lg"
-              onClick={handleApply}
-              disabled={loadingApply}
-              className="flex-1 md:flex-none bg-blue-600 hover:bg-blue-700"
-            >
-              <Briefcase size={18} className="mr-2" />
-              {loadingApply ? 'Applying...' : 'Apply Now'}
-            </Button>
+            
+            {/* Apply Button with Drawer */}
+            <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+              <DrawerTrigger asChild>
+                <Button 
+                  size="lg"
+                  className="flex-1 md:flex-none bg-blue-600 hover:bg-blue-700"
+                >
+                  <Briefcase size={18} className="mr-2" />
+                  Apply Now
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent>
+                <DrawerHeader>
+                  <DrawerTitle>Apply for {job.title}</DrawerTitle>
+                  <DrawerDescription>
+                    Please fill in your details to submit your application
+                  </DrawerDescription>
+                </DrawerHeader>
+                
+                <form onSubmit={handleApply} className="px-4">
+                  <div className="space-y-4 py-4">
+                    {/* Skills */}
+                    <div className="space-y-2">
+                      <Label htmlFor="skills">Skills *</Label>
+                      <Textarea
+                        id="skills"
+                        placeholder="e.g. JavaScript, React, Node.js, etc."
+                        value={applicationData.skills}
+                        onChange={(e) => handleInputChange('skills', e.target.value)}
+                        required
+                        className="min-h-[80px]"
+                      />
+                    </div>
+
+                    {/* Experience */}
+                    <div className="space-y-2">
+                      <Label htmlFor="experience">Experience *</Label>
+                      <Textarea
+                        id="experience"
+                        placeholder="Describe your relevant work experience..."
+                        value={applicationData.experience}
+                        onChange={(e) => handleInputChange('experience', e.target.value)}
+                        required
+                        className="min-h-[100px]"
+                      />
+                    </div>
+
+                    {/* Education */}
+                    <div className="space-y-2">
+                      <Label htmlFor="education">Education *</Label>
+                      <Textarea
+                        id="education"
+                        placeholder="Your educational background..."
+                        value={applicationData.education}
+                        onChange={(e) => handleInputChange('education', e.target.value)}
+                        required
+                        className="min-h-[80px]"
+                      />
+                    </div>
+
+                    {/* Resume File Upload */}
+                    <div className="space-y-2">
+                      <Label htmlFor="resume-file">Upload Resume *</Label>
+                      <Input
+                        id="resume-file"
+                        type="file"
+                        accept=".pdf,.doc,.docx"
+                        onChange={(e) => setResumeFile(e.target.files[0])}
+                        required
+                        className="cursor-pointer"
+                      />
+                      <p className="text-xs text-gray-400">
+                        Upload your resume (PDF, DOC, or DOCX - Max 5MB)
+                      </p>
+                      {resumeFile && (
+                        <p className="text-xs text-green-400">
+                          ✓ Selected: {resumeFile.name}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <DrawerFooter>
+                    <Button 
+                      type="submit" 
+                      disabled={loadingApply}
+                      className="bg-blue-600 hover:bg-blue-700"
+                    >
+                      {loadingApply ? 'Submitting...' : 'Submit Application'}
+                    </Button>
+                    <DrawerClose asChild>
+                      <Button variant="outline">Cancel</Button>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </form>
+              </DrawerContent>
+            </Drawer>
           </div>
         </div>
       </div>

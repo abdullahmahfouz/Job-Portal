@@ -13,7 +13,7 @@ const JobCard = ({
     savedInit=false,
     onJobSaved=()=>{},
 }) => {
-  const [saved, setSaved] = useState(savedInit);
+  const [saved, setSaved] = useState(savedInit || (job?.saved && job.saved.length > 0));
   const {
     fn: fnSavedJobs,
     data: savedJob,
@@ -29,13 +29,18 @@ const JobCard = ({
       user_id: user.id,
       job_id: job.id,
     });
-    setSaved(!saved);
     onJobSaved();
   };
   
   useEffect(() => {
-    if (savedJob !== undefined) setSaved(savedJob?.length > 0);
+    if (savedJob !== undefined) {
+      setSaved(savedJob?.length > 0);
+    }
   }, [savedJob]);
+
+  useEffect(() => {
+    setSaved(savedInit || (job?.saved && job.saved.length > 0));
+  }, [job?.saved, savedInit]);
   
   return (
     <Card>
