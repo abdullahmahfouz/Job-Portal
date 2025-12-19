@@ -18,6 +18,7 @@ const JobListing = () => {
     fn: fnJobs,
     data: dataJobs,
     loading: loadingJobs,
+    error,
   } = useFetch(getJobs, {
     location,
     company_id,
@@ -25,8 +26,12 @@ const JobListing = () => {
   });
 
   useEffect(() => {
-    if (isLoaded) fnJobs();
-  }, [isLoaded, location, company_id, searchQuery]);
+    if (isLoaded) {
+      fnJobs();
+    }
+  }, [isLoaded]);
+
+  console.log('Job Listing State:', { isLoaded, dataJobs, loadingJobs, error });
 
   if (!isLoaded) {
     return <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />;
@@ -49,6 +54,12 @@ const JobListing = () => {
           ) : (
             <div>No Jobs Found </div>
           )}
+        </div>
+      )}
+      
+      {error && (
+        <div className="text-red-500 text-center mt-4">
+          Error: {error.message}
         </div>
       )}
     </div>
