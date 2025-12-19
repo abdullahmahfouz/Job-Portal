@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Trash2Icon, MapPinIcon, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
+import useFetch from '../hooks/use-fetch';
+import { saveJobs } from '../api/apiJobs';
 
 const JobCard = ({
     job, 
@@ -11,7 +13,29 @@ const JobCard = ({
     savedInit=false,
     onJobSaved=()=>{},
 }) => {
+  const [saved, setSaved] = useState(savedInit);
+  const {
+    fn: fnSavedJobs,
+    data: savedJob,
+    loading: loadingSavedJobs,
+  } = useFetch(saveJobs);
+  
   const {user} = useUser();
+
+  const handleSaveJob = async () => {
+    await fnSavedJobs({
+      alreadySaved: saved,
+    }, {
+      user_id: user.id,
+      job_id: job.id,
+    });
+    setSaved(!saved);
+    onJobSaved();
+  };
+  
+  useEffect(() => {
+    if (savedJob !== undefined) setSaved(savedJob?.length > 0);
+  }, [savedJob]);
   
   return (
     <Card>
@@ -27,9 +51,9 @@ const JobCard = ({
       </CardHeader>
       <CardContent className="flex flex-col gap-4 flex-1">
         <div className="flex justify-between"> 
-          {job.company && <img src={job.company.logo_url} className="h-6" />}
-          <div>
-            <MapPinIcon size={15} className="inline mr-1 mb-1" />
+          {job.company && <img src={job.company.company_logo} className="h-6" />}
+          <div className = "flex gap-2 items-center">
+            <MapPinIcon size={15} />
             <span>{job.location}</span>
           </div>
         </div>
@@ -42,8 +66,20 @@ const JobCard = ({
             More Details
           </Button>
         </Link>
-
-        <Heart size={20} stroke= "red" fill='red'/>
+        {!isMyjob && ( 
+          <Button
+            variant="outline"
+            className="w-15"
+            onClick={handleSaveJob}
+            disabled={loadingSavedJobs}
+          >
+            <Heart 
+              size={20} 
+              stroke="red" 
+              fill={saved ? 'red' : 'transparent'}
+            />
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
